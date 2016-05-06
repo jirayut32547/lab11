@@ -15,15 +15,13 @@ import java.util.concurrent.atomic.*;  // hack, using AtomicInteger as accumulat
  */
 public class TaskTimer
 {
-    private static String DICTIONARY = "wordlist.txt";
     /**
      * Process all the words in a file using Scanner to read and parse input.
      * Display summary statistics and elapsed time.
      */
     public static void task1() {
         // initialize: open the words file as InputStream
-        InputStream instream = TaskTimer.class.getClassLoader().getResourceAsStream(DICTIONARY);
-        Scanner in = new Scanner(instream);
+        Scanner in = new Scanner(Dictionary.getWordsAsStream());
         
         out.println("Starting task: read words using Scanner and a while loop");
         long starttime = System.nanoTime();
@@ -48,7 +46,7 @@ public class TaskTimer
      */
     public static void task2( ) {
         // initialize: open the words file as InputStream
-        InputStream instream = TaskTimer.class.getClassLoader().getResourceAsStream(DICTIONARY);
+        InputStream instream = Dictionary.getWordsAsStream();
         BufferedReader br = null;
         try {
             br = new BufferedReader( new InputStreamReader(instream) );
@@ -91,7 +89,7 @@ public class TaskTimer
      */
     public static void task3( ) {
         // initialize: open the words file as InputStream
-        InputStream instream = TaskTimer.class.getClassLoader().getResourceAsStream(DICTIONARY);
+        InputStream instream = Dictionary.getWordsAsStream();
         BufferedReader br = null;
         try {
             br = new BufferedReader( new InputStreamReader(instream) );
@@ -153,7 +151,7 @@ public class TaskTimer
      */
     public static void task4( ) {
         // initialize
-        InputStream instream = TaskTimer.class.getClassLoader().getResourceAsStream(DICTIONARY);
+        InputStream instream = Dictionary.getWordsAsStream();
         BufferedReader br = null;
         try {
             br = new BufferedReader( new InputStreamReader(instream) );
@@ -199,7 +197,7 @@ public class TaskTimer
      */
     public static void task5( ) {
         // initialize
-        InputStream instream = TaskTimer.class.getClassLoader().getResourceAsStream(DICTIONARY);
+        InputStream instream = Dictionary.getWordsAsStream();
         BufferedReader br = null;
         try {
             br = new BufferedReader( new InputStreamReader(instream) );
@@ -230,7 +228,7 @@ public class TaskTimer
      */
     public static void task6( ) {
         // initialize
-        InputStream instream = TaskTimer.class.getClassLoader().getResourceAsStream(DICTIONARY);
+        InputStream instream = Dictionary.getWordsAsStream();
         BufferedReader br = null;
         try {
             br = new BufferedReader( new InputStreamReader(instream) );
@@ -254,16 +252,25 @@ public class TaskTimer
         long stoptime = System.nanoTime();
         out.printf("Elapsed time is %f sec\n",(stoptime - starttime)*1.0E-9 );
     }
+    
+    public static void execAndPrint( Runnable task ){
+    	System.out.println(task.toString());
+    	StopWatch time = new StopWatch();
+    	time.start();
+    	task.run();
+    	time.stop();
+    	out.printf("Elapsed time is %f sec\n", time.getElapsed());
+    }
         
         
     /** Run all the tasks. */
     public static void main(String [] args) {
-        task1();
-        task2();
-        task3();
-        task4();
-        task5();
-        task6();
+    	execAndPrint(new Task1());
+    	execAndPrint(new Task2());
+    	execAndPrint(new Task3());
+    	execAndPrint(new Task4());
+    	execAndPrint(new Task5());
+    	execAndPrint(new Task6());
     }
     
 }
