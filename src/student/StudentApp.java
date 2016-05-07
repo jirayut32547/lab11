@@ -7,15 +7,17 @@ import java.util.function.Predicate;
 
 /**
  * Display reminders of students having a birthday soon.
- * @author you
+ * @author Jirayut Leeupathumvong 5810546617
  */
 public class StudentApp {
 
 	/**
-	 * Print the names (and birthdays) of students having a birtday in the
+	 * Print the names (and birthdays) of students having a birthday in the
 	 * specified month.
-	 * @param students list of students
-	 * @param month the month to use in selecting bithdays
+	 * @param students list of students.
+	 * @param filter Predicate condition of birthday you want to know such as who have birthday coming 14 day.
+	 * @param action pattern form print information about who birthday.
+	 * @param sortBy Comparator to check and sort.
 	 */
 	public void filterAndPrint( List<Student> students, Predicate<Student> filter , Consumer<Student> action , Comparator<Student> sortBy) {
 		students.stream().filter(filter).sorted( sortBy).forEach(action);
